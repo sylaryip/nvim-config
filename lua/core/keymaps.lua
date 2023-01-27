@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 local keymap = vim.keymap
+local Terminal  = require('toggleterm.terminal').Terminal
 local opt = {noremap = true, silent = true }
 
 -- ---------- 视觉模式 ---------- ---
@@ -38,6 +39,22 @@ keymap.set("n", "<C-w>", ":bdelete<CR>", opt)
 -- nvim-tree
 keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", opt)
 
-keymap.set("n", "<leader>t", ":FloatermToggle<CR>", opt)
-keymap.set("v", "<leader>t", "<Esc>:FloatermToggle<CR>", opt)
-keymap.set("t", "<leader>t", "<C-\\><C-n>:FloatermToggle<CR>", opt)
+keymap.set("n", "<F5>", ":ToggleTerm direction=float<CR>", opt)
+keymap.set("v", "<F5>", "<Esc>:ToggleTerm<CR>", opt)
+keymap.set("t", "<F5>", "<C-\\><C-n>:ToggleTerm<CR>", opt)
+keymap.set("n", "<leader>t", ":ToggleTerm direction=horizontal<CR>", opt)
+keymap.set("v", "<leader>t", "<Esc>:ToggleTerm<CR>", opt)
+keymap.set("t", "<leader>t", "<C-\\><C-n>:ToggleTerm<CR>", opt)
+
+-- lazygit
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+keymap.set("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", opt)
+
+keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opt)
+keymap.set("n", "gD", "<cmd>Lspsaga peek_definition<CR>", opt)
+keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)

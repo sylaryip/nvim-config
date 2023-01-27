@@ -73,7 +73,22 @@ return require('packer').startup(function(use)
   }
 
   use 'mattn/emmet-vim'
-  use 'voldikss/vim-floaterm'
+  use {
+    'akinsho/toggleterm.nvim',
+    tag = "*",
+    config = function()
+    require"toggleterm".setup()
+    end
+  }
+  
+  use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+    requires = { {"nvim-tree/nvim-web-devicons"} }
+  })
 
   if packer_bootstrap then
     require('packer').sync()
