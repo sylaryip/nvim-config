@@ -49,7 +49,7 @@ keymap.set("t", "<leader>t", "<C-\\><C-n>:ToggleTerm<CR>", opt)
 -- lazygit
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 
-function _lazygit_toggle()
+local function _lazygit_toggle()
   lazygit:toggle()
 end
 keymap.set("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", opt)
