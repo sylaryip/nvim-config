@@ -49,12 +49,14 @@ keymap.set("t", "<leader>t", "<C-\\><C-n>:ToggleTerm<CR>", opt)
 -- lazygit
 local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
 
-local function _lazygit_toggle()
+function _lazygit_toggle()
   lazygit:toggle()
 end
 keymap.set("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", opt)
 
 keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opt)
+keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opt)
 keymap.set("n", "gD", "<cmd>Lspsaga peek_definition<CR>", opt)
-keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
+keymap.set("n", "<leader>rN", "<cmd>Lspsaga rename ++project<CR>", opt)
+-- keymap.set("n", "gs", "<cmd>Lspsaga signature_help<CR>", opt)
