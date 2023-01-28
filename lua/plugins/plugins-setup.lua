@@ -23,9 +23,21 @@ vim.cmd([[
 ]])
 
 return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
+  use {'wbthomason/packer.nvim',
+    config = {
+      max_job = 16,
+    },
+  }
+  use 'lewis6991/impatient.nvim'
   use 'folke/tokyonight.nvim' -- 主题
   use 'kyazdani42/nvim-web-devicons'
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'nvim-tree/nvim-web-devicons' },
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.startify'.config)
+    end
+  }
   use {
     'nvim-lualine/lualine.nvim',  -- 状态栏
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }  -- 状态栏图标
@@ -44,7 +56,7 @@ return require('packer').startup(function(use)
     'williamboman/mason-lspconfig.nvim',  -- 这个相当于mason.nvim和lspconfig的桥梁
     'neovim/nvim-lspconfig'
   }
-    -- 自动补全
+  -- 自动补全
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'L3MON4D3/LuaSnip' -- snippets引擎，不装这个自动补全会出问题
@@ -77,20 +89,31 @@ return require('packer').startup(function(use)
     'akinsho/toggleterm.nvim',
     tag = "*",
     config = function()
-    require"toggleterm".setup()
+      require"toggleterm".setup()
     end
   }
-  
-  use({
-    "glepnir/lspsaga.nvim",
-    branch = "main",
+  use 'f-person/git-blame.nvim'
+  use {
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
     config = function()
-      require("lspsaga").setup({})
-    end,
-    requires = { {"nvim-tree/nvim-web-devicons"} }
-  })
-
-
+      require("trouble").setup ({})
+    end
+  }
+  use "ray-x/lsp_signature.nvim"
+  use "lukas-reineke/indent-blankline.nvim"
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+ 
   if packer_bootstrap then
     require('packer').sync()
   end
